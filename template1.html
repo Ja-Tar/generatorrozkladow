@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8" />
+        <title>Rozklad: {{rodzaj_pociagu}} {{numer_pociagu}}</title>
+        <style>table, th{border: 1px solid black;border-collapse: collapse; font-weight: normal}</style>
+        <style>tbody{page-break-inside: avoid-page; page-break-before: auto; page-break-after: auto;}</style>
+    </head>
+    <body>
+        <p>{{rodzaj_pociagu}} {{numer_pociagu}} Relacja: {{relacja_start}} - {{relacja_koniec}}</p>
+        <!-- Nazwa pociągu -->
+        <table>
+            <thead>
+                <!-- Nagłówek -->
+                <tr style="height:64px">
+                    <th style="width:40px">Nr linii</th>
+                    <th style="width:64px">Km</th>
+                    <th style="width:32px">V</th>
+                    <th style="width:320px">Stacja</th>
+                    <th style="width:100px">Godzina</th>
+                    <th style="width:40px">LokI
+                        LokII
+                        LokIII</th>
+                    <th style="width:72px">Obc.lok
+                        Dł.Poc.</th>
+                    <th style="width:52px">Vmax</th>
+                </tr>
+            </thead>
+            {% for stacja in data %}
+            {% if stacja["stacja_format"] == "Początkowa" %}
+            {# Stacja początkowa #}
+            <tbody>
+                <tr style="height:36px; vertical-align: top">
+                    <td
+                        style="text-align:centre; border-width: 1px 0 0 0; border-style: solid; border-collapse: collapse">{{stacja["nr_linii"]}}</td>
+                    <td
+                        style="text-align: right; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse">{{stacja["km"]}}</td>
+                    <td style="text-align:center"></td>
+                    <td
+                        style="vertical-align: top; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse"><strong>{{stacja["stacja"]}}{{stacja["rodzajpostoju"]}}</strong></td>
+                    <td
+                        style="vertical-align: top; text-align: center; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse"><hr></td>
+                    <td
+                        style="text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse;">{{stacja["lokomotywa"]}}</td>
+                    <td
+                        style="text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse;">320</td>
+                    <td
+                        style="text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 0 0 1px;border-collapse: collapse;">{{vmax}}</td>
+                </tr>
+                <tr style="height:36px; vertical-align: bottom">
+                    <td></td>
+                    <td
+                        style="border-style: solid; border-width: 0 1px 1px 1px;border-collapse: collapse"></td>
+                    <td style="text-align:center">{{stacja["wyj-v"]}}</td>
+                    <td
+                        style="border-style: solid; border-width: 0 1px 1px 1px;border-collapse: collapse">{{stacja["km"]}}</td>
+                    <td
+                        style="text-align: center; border-style: solid; border-width: 0 1px 1px 1px;border-collapse: collapse">{{stacja["godzinaout"]}}</td>
+                    <td
+                        style="border-style: solid; border-width: 0 1px 1px 1px;border-collapse: collapse;"></td>
+                    <td
+                        style="text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 1px 1px;border-collapse: collapse;">166</td>
+                    <td
+                        style="border-style: solid; border-width: 0 1px 1px 1px;border-collapse: collapse;"></td>
+                </tr>
+            </tbody>
+            {% endif %}
+            {% if stacja["stacja_format"] == "Normalna" %}
+            {# Stacja #}
+            <tbody>
+                <tr style="height:36px; vertical-align: top">
+                    {% if stacja["zmiananrlinii"] == True %}
+                    <td
+                        style="text-align:centre; border-width: 1px 0 0 0; border-style: solid; border-collapse: collapse">{{stacja["nr_linii"]}}</td>
+                    {% endif %}
+                    {% if stacja["zmiananrlinii"] == False %}
+                    <td></td>
+                    {% endif %}
+                    <td
+                        style="text-align: right; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse">{{stacja["km"]}}</td>
+                    <td style="text-align:center">{{stacja["wja-v"]}}</td>
+                    {% if stacja["rodzajstacji"] != "" %}
+                    <td
+                        style="vertical-align: top; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse">{{stacja["stacja"]}}{{stacja["rodzajpostoju"]}}</td>
+                    {% endif %}
+                    {% if stacja["rodzajstacji"] == "" %}
+                    <td
+                        style="vertical-align: top; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse"><strong>{{stacja["stacja"]}}{{stacja["rodzajpostoju"]}}</strong></td>
+                    {% endif %}
+                    <td
+                        style="vertical-align: top; text-align: center; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse">{{stacja["godzinain"]}}</td>
+                    {% if stacja["zmianalokomotywy"] == False %}
+                    <td
+                        style="color: grey; border-color:grey; text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 0 0;border-collapse: collapse;">{{stacja["lokomotywa"]}}</td>
+                    <td
+                        style="color: grey; border-color:grey; text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse;">320</td>
+                    <td
+                        style="color: grey; border-color:grey; text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 0 0 1px;border-collapse: collapse;">{{vmax}}</td>
+                    {% endif %}
+                    {% if stacja["zmianalokomotywy"] == True %}
+                    <td
+                        style="text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse;">{{stacja["lokomotywa"]}}</td>
+                    <td
+                        style="text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse;">320</td>
+                    <td
+                        style="text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 0 0 1px;border-collapse: collapse;">{{vmax}}</td>
+                    {% endif %}
+                </tr>
+                <tr style="height:36px; vertical-align: bottom">
+                    <td></td>
+                    <td
+                        style="border-style: solid; border-width: 0 1px 1px 1px;border-collapse: collapse"></td>
+                    <td style="text-align:center">{{stacja["wyj-v"]}}</td>
+                    <td
+                        style="border-style: solid; border-width: 0 1px 1px 1px;border-collapse: collapse">{{stacja["km"]}}</td>
+                    <td
+                        style="text-align: center; border-style: solid; border-width: 0 1px 1px 1px;border-collapse: collapse">{{stacja["godzinaout"]}}</td>
+                    {% if stacja["zmianalokomotywy"] == False %}
+                    <td
+                        style="border-style: solid; border-width: 0 0 0 1px;border-collapse: collapse; border-color:grey; color:grey"></td>
+                    <td
+                        style="text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse; border-color:grey; color:grey">166</td>
+                    <td
+                        style="border-style: solid; border-width: 0 0 0 0;border-collapse: collapse; border-color:grey; color:grey"></td>
+                    {% endif %}
+                    {% if stacja["zmianalokomotywy"] == True %}
+                    <td
+                        style="border-style: solid; border-width: 0 0 0 1px;border-collapse: collapse"></td>
+                    <td
+                        style="text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse">166</td>
+                    <td
+                        style="border-style: solid; border-width: 0 0 0 0;border-collapse: collapse"></td>
+                    {% endif %}
+                </tr>
+            </tbody>
+            {% endif %}
+            {% if stacja["stacja_format"] == "Końcowa" %}
+            {# Stacja końcowa #}
+            <tbody>
+                <tr style="height:36px; vertical-align: top">
+                    {% if stacja["zmiananrlinii"] == True %}
+                    <td
+                        style="text-align:centre; border-width: 1px 0 0 0; border-style: solid; border-collapse: collapse">{{stacja["nr_linii"]}}</td>
+                    {% endif %}
+                    {% if stacja["zmiananrlinii"] == False %}
+                    <td></td>
+                    {% endif %}
+                    <td
+                        style="text-align: right; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse">{{stacja["km"]}}</td>
+                    <td style="text-align:center">{{stacja["wja-v"]}}</td>
+                    <td
+                        style="vertical-align: top; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse"><strong>{{stacja["stacja"]}}{{stacja["rodzajpostoju"]}}</strong></td>
+                    <td
+                        style="vertical-align: top; text-align: center; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse">{{stacja["godzinain"]}}</td>
+                    <td
+                        style="color: grey; border-color:grey; text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 0 0;border-collapse: collapse;">{{stacja["lokomotywa"]}}</td>
+                    <td
+                        style="color: grey; border-color:grey; text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse;">320</td>
+                    <td
+                        style="color: grey; border-color:grey; text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 0 0 1px;border-collapse: collapse;">{{vmax}}</td>
+                </tr>
+                <tr style="height:36px; vertical-align: bottom">
+                    <td></td>
+                    <td
+                        style="border-style: solid; border-width: 0 1px 1px 1px;border-collapse: collapse"></td>
+                    <td style="text-align:center"></td>
+                    <td
+                        style="border-style: solid; border-width: 0 1px 1px 1px;border-collapse: collapse">{{stacja["km"]}}</td>
+                    <td
+                        style="text-align: center; border-style: solid; border-width: 0 1px 1px 1px;border-collapse: collapse"><hr></td>
+                    <td
+                        style="border-style: solid; border-width: 0 0 0 1px;border-collapse: collapse; border-color:grey; color:grey"></td>
+                    <td
+                        style="text-align: center; vertical-align: middle; border-style: solid; border-width: 1px 1px 0 1px;border-collapse: collapse; border-color:grey; color:grey">166</td>
+                    <td
+                        style="border-style: solid; border-width: 0 0 0 0;border-collapse: collapse; border-color:grey; color:grey"></td>
+                </tr>
+            </tbody>
+            {% endif %}
+            {% endfor %}
+        </table>
+    </body>
+</html>
