@@ -1,1 +1,3 @@
 # generatorrozkladow
+
+# W TRAKCIE BUDOWY
