@@ -119,6 +119,16 @@ class StationDataEditor:
         if tempdata["lokomotywa"] == "EP08":
             lokomotywa_entry.insert(0, "EP08")
         lokomotywa_entry.pack()
+
+        # Długość składu
+        tk.Label(station_window, text="Długość składu:").pack()
+        dlugosc_skladu_entry = tk.Entry(station_window)
+        dlugosc_skladu_entry.pack()
+
+        # Obciążenie składu
+        tk.Label(station_window, text="Obciążenie składu:").pack()
+        obciazenie_skladu_entry = tk.Entry(station_window)
+        obciazenie_skladu_entry.pack()
         
         tk.Label(station_window, text="Godzina przyjazdu:").pack()
         godzinain_entry = tk.Entry(station_window)
@@ -151,13 +161,15 @@ class StationDataEditor:
                 stacja_entry.get(),
                 rodzajpostoju_format.get(),
                 lokomotywa_entry.get(),
+                dlugosc_skladu_entry.get(),
+                obciazenie_skladu_entry.get(),
                 godzinain_entry.get(),
                 godzinaout_entry.get(),
                 stacja_format.get(),
             ),
         ).pack()
 
-    def save_station(self, nr_linii, km, wja_v, wyj_v, rodzajstacji, stacja, rodzajpostoju, lokomotywa, godzinain, godzinaout, stacja_format):
+    def save_station(self, nr_linii, km, wja_v, wyj_v, rodzajstacji, stacja, rodzajpostoju, lokomotywa, dlugosc_skladu, obciazenie_skladu, godzinain, godzinaout, stacja_format):
         if stacja_format == "Normalna":
             if rodzajstacji == "po.":
                 stacja = f"{stacja}, po."
@@ -185,6 +197,10 @@ class StationDataEditor:
                 zmiananrlinii = True
             if lokomotywa != self.data[-1]["lokomotywa"]:
                 zmianalokomotywy = True
+            if dlugosc_skladu != self.data[-1]["dlugosc_skladu"]:
+                zmianalokomotywy = True
+            if obciazenie_skladu != self.data[-1]["obciazenie_skladu"]:
+                zmianalokomotywy = True
         except IndexError:
             pass
 
@@ -199,6 +215,8 @@ class StationDataEditor:
                 "stacja": stacja,
                 "rodzajpostoju": rodzajpostoju,
                 "lokomotywa": lokomotywa,
+                "dlugosc_skladu": dlugosc_skladu,
+                "obciazenie_skladu": obciazenie_skladu,
                 "zmianalokomotywy": zmianalokomotywy,
                 "godzinain": godzinain,
                 "godzinaout": godzinaout,
