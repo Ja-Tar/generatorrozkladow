@@ -11,7 +11,7 @@
   },
   {
    "optionDest": "onefile",
-   "value": false
+   "value": true
   },
   {
    "optionDest": "console",
@@ -68,14 +68,6 @@
   {
    "optionDest": "argv_emulation",
    "value": false
-  },
-  {
-   "optionDest": "datas",
-   "value": "D:/Dokumenty/pythongeneratorrozkladuw/template1.html;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "D:/Dokumenty/pythongeneratorrozkladuw/template2.html;."
   }
  ],
  "nonPyinstallerOptions": {
